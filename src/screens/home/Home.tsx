@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView, RefreshControl } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import HeaderHome from '../../components/HeaderHome';
 import axios from 'axios';
@@ -7,6 +7,7 @@ import { FontAwesome5 } from '@react-native-vector-icons/fontawesome5';
 
 export default function Home() {
   const [items, setItems] = useState<any[]>([]);
+  const [refresh, setRefresh] = useState(false);
   const getItems = async () => {
     try {
       const result = await axios.get(API.baseUrl + '/categories', {
@@ -24,8 +25,18 @@ export default function Home() {
   useEffect(() => {
     getItems();
   }, []);
+
+  const onRefresh = async () => {
+    setRefresh(true);
+    await getItems();
+    setRefresh(false);
+  };
   return (
-    <View>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refresh} onRefresh={onRefresh} />
+      }
+    >
       <HeaderHome />
       <View style={{ padding: 20 }}>
         <View
@@ -133,6 +144,6 @@ export default function Home() {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
