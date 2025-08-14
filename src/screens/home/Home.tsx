@@ -1,9 +1,17 @@
-import { View, Text, Image, TouchableOpacity, ScrollView, RefreshControl } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  RefreshControl,
+} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import HeaderHome from '../../components/HeaderHome';
 import axios from 'axios';
 import { API } from '../../utils/api';
 import { FontAwesome5 } from '@react-native-vector-icons/fontawesome5';
+import Skeleton from '../../components/Skeleton';
 
 export default function Home() {
   const [items, setItems] = useState<any[]>([]);
@@ -47,6 +55,13 @@ export default function Home() {
             marginTop: 10,
           }}
         >
+          {items?.length === 0 && (
+            <>
+              <Skeleton width={110} height={60} />
+              <Skeleton width={110} height={60} />
+              <Skeleton width={110} height={60} />
+            </>
+          )}
           {items?.slice(0, 2)?.map((item, index) => {
             return (
               <TouchableOpacity
@@ -87,6 +102,13 @@ export default function Home() {
             marginTop: 20,
           }}
         >
+          {items?.length === 0 && (
+            <>
+              <Skeleton width={110} height={60} />
+              <Skeleton width={110} height={60} />
+              <Skeleton width={110} height={60} />
+            </>
+          )}
           {items?.slice(2, 5)?.map((item, index) => {
             return (
               <TouchableOpacity
