@@ -59,7 +59,6 @@ export default function Home() {
             <>
               <Skeleton width={110} height={60} />
               <Skeleton width={110} height={60} />
-              <Skeleton width={110} height={60} />
             </>
           )}
           {items?.slice(0, 2)?.map((item, index) => {
